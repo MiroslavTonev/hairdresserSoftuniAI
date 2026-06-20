@@ -1,0 +1,1 @@
+In the client screen whenever the client book particular hour, instead of simply remove it from the screen I want to be still visible but unavaliable to be clicked, blure it or something else to show that this is not abailable.

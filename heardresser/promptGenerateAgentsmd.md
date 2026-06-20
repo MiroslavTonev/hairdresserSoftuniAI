@@ -1,0 +1,1 @@
+Generate AGENTS.md file which is going to be used be the agent. The file will cover the main part of the hairdresser project like goals, thechnologies, the limitations

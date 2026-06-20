@@ -1,0 +1,1 @@
+Generate a skill to restart the application after changes on the backend or on the frontend

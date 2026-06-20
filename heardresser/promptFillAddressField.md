@@ -1,0 +1,1 @@
+When the owner select a location on the map, Address field must be populated, instead to be input field.

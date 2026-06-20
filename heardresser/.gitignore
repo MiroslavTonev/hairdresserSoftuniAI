@@ -1,0 +1,12 @@
+# Maven build output
+hairdresser/target/
+
+# H2 database files (runtime data — not source)
+hairdresser/*.mv.db
+hairdresser/*.trace.db
+
+# IDE / OS
+.idea/
+*.iml
+.DS_Store
+nohup.out

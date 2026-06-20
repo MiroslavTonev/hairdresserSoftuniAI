@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Slot – Hairdresser Booking</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="topnav">
+        <a href="index.html" class="nav-title">Hairdresser Booking</a>
+        <div class="nav-actions">
+            <div class="role-toggle">
+                <span>Role:</span>
+                <button id="roleBtn" class="btn-role"></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="salon-main">
+        <section class="salon-info">
+            <h1 id="salonName">Loading…</h1>
+            <p id="salonAddress" class="salon-address"></p>
+        </section>
+
+        <section class="booking-section">
+            <!-- Next available slot banner -->
+            <div id="nextAvailableBanner" class="next-available-banner na-loading">Checking availability…</div>
+
+            <!-- Week navigation -->
+            <div class="week-nav">
+                <button id="prevWeekBtn" class="btn-secondary" disabled>← Previous</button>
+                <span id="weekRangeLabel" class="week-range-label"></span>
+                <button id="nextWeekBtn" class="btn-secondary">Next →</button>
+            </div>
+
+            <!-- Week grid -->
+            <div id="weekGrid" class="week-grid">
+                <p class="slots-hint">Loading week…</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Booking modal -->
+    <div id="bookingModal" class="modal-overlay hidden">
+        <div class="modal">
+            <h3>Confirm Booking</h3>
+            <p id="modalSlotInfo" class="modal-slot-info"></p>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="clientName">Your name</label>
+                    <input type="text" id="clientName" required placeholder="Full name">
+                </div>
+                <div class="form-group">
+                    <label for="clientContact">Phone / Email</label>
+                    <input type="text" id="clientContact" required placeholder="Contact details">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Book</button>
+                    <button type="button" id="closeModalBtn" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success toast -->
+    <div id="successToast" class="toast hidden">Booking confirmed!</div>
+
+    <script src="js/api.js"></script>
+    <script src="js/salon.js"></script>
+</body>
+</html>

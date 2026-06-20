@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard – Hairdresser Booking</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.js"></script>
+</head>
+<body>
+    <nav class="topnav">
+        <a href="index.html" class="nav-title">Hairdresser Booking</a>
+        <div class="nav-actions">
+            <div class="role-toggle">
+                <span>Role:</span>
+                <button id="roleBtn" class="btn-role"></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="owner-main">
+        <section class="owner-list-section">
+            <div class="section-header">
+                <h2>My Salons</h2>
+                <button id="addSalonBtn" class="btn-primary">+ Add Salon</button>
+            </div>
+            <ul id="salonList" class="salon-list"></ul>
+        </section>
+
+        <section id="salonFormSection" class="salon-form-section hidden">
+            <h2 id="formTitle">New Salon</h2>
+            <form id="salonForm">
+                <input type="hidden" id="salonId">
+
+                <div class="form-group">
+                    <label for="salonName">Name</label>
+                    <input type="text" id="salonName" required placeholder="Salon name">
+                </div>
+
+                <div class="form-group">
+                    <label for="salonAddress">Address <small>(auto-filled from map pin)</small></label>
+                    <input type="text" id="salonAddress" readonly placeholder="Click the map to set location…">
+                </div>
+
+                <div class="form-group">
+                    <label>Location <small>(click map to set pin)</small></label>
+                    <div id="miniMap"></div>
+                    <div class="coords-row">
+                        <input type="number" id="salonLat" step="any" placeholder="Latitude" required>
+                        <input type="number" id="salonLng" step="any" placeholder="Longitude" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Working Hours</label>
+                    <div id="workingHoursGrid" class="working-hours-grid">
+                        <!-- Rendered by owner.js -->
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Save</button>
+                    <button type="button" id="cancelFormBtn" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/owner.js"></script>
+</body>
+</html>

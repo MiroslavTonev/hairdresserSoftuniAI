@@ -1,0 +1,1 @@
+I want to update the client Page when he wants to make a booking to see the calendar of the selected hairdresser for a week ahead, all free hours. The next button must move the view a week ahead. Also I want to see information when it is the next available free hours, this is helpfull when the next available free hour is not on the current week.

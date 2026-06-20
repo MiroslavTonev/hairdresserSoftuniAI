@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hairdresser Booking</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.js"></script>
+</head>
+<body>
+    <nav class="topnav">
+        <span class="nav-title">Hairdresser Booking</span>
+        <div class="nav-actions">
+            <div class="role-toggle">
+                <span>Role:</span>
+                <button id="roleBtn" class="btn-role"></button>
+            </div>
+            <a id="ownerLink" href="owner.html" class="btn-secondary hidden">Owner Dashboard</a>
+        </div>
+    </nav>
+
+    <main id="map"></main>
+
+    <script src="js/api.js"></script>
+    <script src="js/map.js"></script>
+</body>
+</html>

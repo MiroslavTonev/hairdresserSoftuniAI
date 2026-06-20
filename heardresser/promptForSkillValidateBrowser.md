@@ -1,0 +1,1 @@
+Generate a skill to make the agent validate itseld in the browser
