@@ -5,10 +5,10 @@ description: >
   Triggers: "restart the app", "restart the server", "apply changes", "reload the backend",
   "restart after changes", "pick up my changes", "kill and restart", "bounce the server",
   "changes not taking effect", "server is stale", "refresh the backend".
-  Handles: finding the running process, killing it cleanly, rebuilding if backend Java files
-  changed, then starting the server again and confirming it is healthy on port 8080.
-  NOT for: first-time project setup (scaffold the project first), running unit tests
-  (use pre-build-unit-tests), browser smoke tests (use browser-validation).
+  Handles: finding the running process, killing it cleanly, running the unit test gate
+  (pre-build-unit-tests skill) when backend Java files changed, recompiling, then starting
+  the server again and confirming it is healthy on port 8080.
+  NOT for: first-time project setup (scaffold the project first), browser smoke tests (use browser-validation).
 ---
 
 # Restart App Skill
@@ -33,6 +33,9 @@ Determine the type of changes made in the current session:
 
 ## Step 2 — Stop the running server
 
+> **Note — test gate order:** Steps 3 (unit tests) and 4 (recompile) only apply when backend
+> Java files changed. For frontend-only changes skip directly to Step 5 (start server).
+
 Check whether the server is already running on port 8080 and stop it cleanly.
 
 ```bash
@@ -54,7 +57,27 @@ Wait up to 5 seconds for the port to be released before continuing.
 
 ---
 
-## Step 3 — Recompile (backend changes only)
+## Step 3 — Run unit tests (backend changes only)
+
+Skip this step if only frontend (static) files changed.
+
+Apply the **pre-build-unit-tests** skill:
+- Identify changed Java files in `src/main/java/`
+- Generate or update the corresponding JUnit 5 test classes under `src/test/java/`
+- Run `mvn test` from the project root
+- **Gate:** if any test fails, stop here and report the failure. Do NOT recompile or start the server until all tests are green.
+
+```bash
+cd /home/tonev/SoftuniProjects/heardresser/hairdresser
+mvn test
+```
+
+- `BUILD SUCCESS` → all tests pass, proceed to Step 4
+- `BUILD FAILURE` / failing tests → **stop here**, report which tests failed and why, fix the issue, then re-run this step.
+
+---
+
+## Step 4 — Recompile (backend changes only)
 
 Skip this step if only frontend (static) files changed.
 
@@ -63,12 +86,12 @@ cd /home/tonev/SoftuniProjects/heardresser/hairdresser
 mvn compile -q
 ```
 
-- `BUILD SUCCESS` → proceed to Step 4
+- `BUILD SUCCESS` → proceed to Step 5
 - `BUILD FAILURE` → **stop here**, report the compiler errors to the user, and do NOT start the server. Fix the errors first.
 
 ---
 
-## Step 4 — Start the server
+## Step 5 — Start the server
 
 ```bash
 cd /home/tonev/SoftuniProjects/heardresser/hairdresser
@@ -93,7 +116,7 @@ done
 
 ---
 
-## Step 5 — Health check
+## Step 6 — Health check
 
 After the polling loop, confirm the server is healthy:
 
@@ -112,7 +135,7 @@ Report any errors found in the log to the user.
 
 ---
 
-## Step 6 — Report
+## Step 7 — Report
 
 Produce a short summary:
 
@@ -120,6 +143,7 @@ Produce a short summary:
 Restart complete
 ================
 Change type   : backend / frontend / both
+Unit tests    : passed (N tests) / skipped (frontend-only)
 Recompiled    : yes / no / skipped (frontend-only)
 Server PID    : <pid>
 Port 8080     : HEALTHY (HTTP 200 from /api/salons)
